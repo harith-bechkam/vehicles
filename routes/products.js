@@ -11,7 +11,6 @@ router.put('/Imgupdate', upload.array('product_img'), ProductsController.Imgupda
 router.get('/top_rated_products', ProductsController.top_rated_products);
 router.get('/best_products', ProductsController.best_products);
 router.post('/product_types', ProductsController.product_types);
-router.get('/product_related_offers', ProductsController.product_related_offers);
 
 module.exports = router;
 

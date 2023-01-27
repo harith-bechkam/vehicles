@@ -12,9 +12,25 @@ var app = express();
 var cors = require('cors');
 const models = require('./models')
 const dotenv = require('dotenv');
+const authtoken = require('./utils/authtoken');
 dotenv.config()
 
 app.use(cors());
+
+app.use(function (req, res, next) {
+  var anonymousUrls = ['/auth/login'];
+    var isAnonymousUrl = anonymousUrls.some(function (regex) {
+      var buf = Buffer.from(req.originalUrl);
+      return buf.indexOf(regex) > -1
+    });
+    if (isAnonymousUrl){ return next();
+    }
+  else{
+    authtoken.verifyToken(req, res, next);
+  }
+  
+});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
